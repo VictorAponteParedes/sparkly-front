@@ -147,7 +147,7 @@ export const Drawer: React.FC<DrawerProps> = ({ children }) => {
                 label="Mensajes"
                 onPress={() => {
                   closeDrawer();
-                  navigation.navigate(Routes.Message);
+                  navigation.navigate(Routes.MessagesList);
                 }}
               />
               <DrawerItem
