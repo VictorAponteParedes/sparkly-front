@@ -111,7 +111,7 @@ export const Drawer: React.FC<DrawerProps> = ({ children }) => {
                 <Icon name="close" size={24} color={colors.white} />
               </TouchableOpacity>
               <View style={styles.drawerTitleContainer}>
-                <Icon name="profile" size={32} color={colors.white} />
+                <Icon name="profile" size={24} color={colors.white} />
                 <Text style={styles.drawerTitle}>Sparkly</Text>
               </View>
             </View>
@@ -140,6 +140,14 @@ export const Drawer: React.FC<DrawerProps> = ({ children }) => {
                 onPress={() => {
                   closeDrawer();
                   navigation.navigate(Routes.Match);
+                }}
+              />
+              <DrawerItem
+                icon="message"
+                label="Mensajes"
+                onPress={() => {
+                  closeDrawer();
+                  navigation.navigate(Routes.Message);
                 }}
               />
               <DrawerItem

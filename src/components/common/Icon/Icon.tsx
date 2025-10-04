@@ -16,7 +16,8 @@ import Match from '../../../assets/icons/match.svg';
 import Notifications from '../../../assets/icons/notifications.svg';
 import CarouselHorizontal from '../../../assets/icons/carousel-horizontal.svg';
 import ArrowLeft from '../../../assets/icons/arrow-left.svg';
-
+import Send from '../../../assets/icons/send.svg';
+import Search from '../../../assets/icons/search.svg';
 
 const iconComponents = {
     home: HomeIcon,
@@ -30,7 +31,9 @@ const iconComponents = {
     match: Match,
     notifications: Notifications,
     carouselHorizontal: CarouselHorizontal,
-    arrowLeft: ArrowLeft
+    arrowLeft: ArrowLeft,
+    send: Send,
+    search: Search
 } as const;
 
 export type IconName = keyof typeof iconComponents;
