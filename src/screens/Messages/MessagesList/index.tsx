@@ -35,10 +35,12 @@ export const MessagesList: React.FC = () => {
     );
 
     const handleChatPress = (chat: Chat) => {
-        navigation.navigate(Routes.Message)
-        console.log('Abrir chat con:', chat.name);
-    };
+        navigation.navigate(Routes.MESSAGES_DETAIL, {
+            chatId: chat.id,
+            chatName: chat.name
+        });
 
+    };
     return (
         <Layout
             title="Mensajes"
