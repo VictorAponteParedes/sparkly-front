@@ -6,6 +6,7 @@ export const Routes = {
     SETTINGS: 'Settings',
     Call: 'Call',
     Message: 'Message',
+    Match: 'Match',
     //AUTH ROUTES
     LOGIN: 'Login',
     REGISTER: 'Register',
