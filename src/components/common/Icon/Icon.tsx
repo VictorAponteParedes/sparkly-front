@@ -18,6 +18,8 @@ import CarouselHorizontal from '../../../assets/icons/carousel-horizontal.svg';
 import ArrowLeft from '../../../assets/icons/arrow-left.svg';
 import Send from '../../../assets/icons/send.svg';
 import Search from '../../../assets/icons/search.svg';
+import Location from '../../../assets/icons/location.svg';
+import Heart from '../../../assets/icons/heart.svg';
 
 const iconComponents = {
     home: HomeIcon,
@@ -33,7 +35,9 @@ const iconComponents = {
     carouselHorizontal: CarouselHorizontal,
     arrowLeft: ArrowLeft,
     send: Send,
-    search: Search
+    search: Search,
+    location: Location,
+    heart: Heart
 } as const;
 
 export type IconName = keyof typeof iconComponents;
