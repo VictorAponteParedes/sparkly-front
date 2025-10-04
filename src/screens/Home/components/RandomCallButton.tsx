@@ -8,7 +8,8 @@ interface Props {
     onPress: () => void;
 }
 
-const RandomCallButton = ({ onPress }: Props) => {
+const RandomCallButton = (props: Props) => {
+    const { onPress } = props;
     return (
         <View style={styles.container}>
             <TouchableOpacity style={styles.buttonContainer} onPress={onPress}>

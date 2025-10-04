@@ -1,32 +1,36 @@
 import React from 'react';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Routes } from './routes';
 
-//Views
-import Profile from '../screens/Profile';
-import Home from '../screens/Home';
+// Importa el TabsNavigator
+import TabsNavigator from './TabsNavigator';
 
-const Tab = createBottomTabNavigator();
+
+import Call from '../screens/Call';
+import Settings from '../screens/Settings';
+
+const Stack = createNativeStackNavigator();
 
 export default function AppNavigator() {
     return (
-        <Tab.Navigator
+        <Stack.Navigator
             screenOptions={{
-                tabBarActiveTintColor: '#007AFF',
                 headerShown: false,
             }}
         >
-            <Tab.Screen
-                name={Routes.HOME}
-                component={Home}
-                options={{ title: 'Inicio' }}
-            />
-            <Tab.Screen
-                name={Routes.PROFILE}
-                component={Profile}
-                options={{ title: 'Perfil' }}
+            <Stack.Screen
+                name={Routes.MAIN_TABS}
+                component={TabsNavigator}
             />
 
-        </Tab.Navigator>
+            <Stack.Screen
+                name={Routes.Call}
+                component={Call}
+            />
+            <Stack.Screen
+                name={Routes.SETTINGS}
+                component={Settings}
+            />
+        </Stack.Navigator>
     );
 }

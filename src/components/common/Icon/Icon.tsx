@@ -6,11 +6,17 @@ import { colors } from '../../../theme/theme';
 
 import HomeIcon from '../../../assets/icons/home.svg';
 import VideCall from '../../../assets/icons/videoCall.svg';
+import Profile from '../../../assets/icons/profile.svg';
+import Message from '../../../assets/icons/message.svg';
+import Settings from '../../../assets/icons/settings.svg';
 
 
 const iconComponents = {
     home: HomeIcon,
-    videoCall: VideCall
+    videoCall: VideCall,
+    profile: Profile,
+    message: Message,
+    settings: Settings
 } as const;
 
 export type IconName = keyof typeof iconComponents;

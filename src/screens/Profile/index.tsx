@@ -4,7 +4,7 @@ import { View, Text } from "react-native";
 const Profile = () => {
     return (
         <View>
-            <Text>Profile Screen</Text>
+            <Text style={{ color: 'red' }}>Profile Screen</Text>
         </View>
     );
 }
