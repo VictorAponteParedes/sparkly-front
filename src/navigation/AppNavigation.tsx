@@ -4,10 +4,10 @@ import { Routes } from './routes';
 
 import { TabsNavigator } from './TabsNavigator';
 import Call from '../screens/Call';
-import Match from '../screens/Match';
+import Match from '../screens/Match/Discover';
 import Profile from '../screens/Profile';
 import Settings from '../screens/Settings';
-import Messages from '../screens/Messages';
+import MessagesDetail from '../screens/Messages/MessageDetail';
 
 const Stack = createNativeStackNavigator();
 
@@ -35,9 +35,10 @@ export default function AppNavigator() {
                 component={Match}
             />
             <Stack.Screen
-                name={Routes.Message}
-                component={Messages}
+                name={Routes.MESSAGES_DETAIL}
+                component={MessagesDetail}
             />
+
             <Stack.Screen
                 name={Routes.PROFILE}
                 component={Profile}

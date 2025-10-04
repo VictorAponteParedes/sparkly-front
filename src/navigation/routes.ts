@@ -5,7 +5,7 @@ export const Routes = {
     PROFILE: 'Profile',
     SETTINGS: 'Settings',
     Call: 'Call',
-    Message: 'Message',
+    MESSAGES_DETAIL: 'MESSAGES_DETAIL',
     MessagesList: 'MessagesList',
     Match: 'Match',
     //AUTH ROUTES
