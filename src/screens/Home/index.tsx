@@ -2,6 +2,7 @@ import React from 'react';
 import { View, ScrollView } from 'react-native';
 import RandomCallButton from './components/RandomCallButton';
 import { styles } from './styles';
+import { Drawer } from '../../components/Drawer/Drawer';
 
 export default function Home() {
     const handleRandomCall = () => {
