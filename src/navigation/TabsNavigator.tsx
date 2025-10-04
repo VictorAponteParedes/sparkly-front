@@ -4,7 +4,7 @@ import { Routes } from './routes';
 
 // Views
 import Home from '../screens/Home';
-import Messages from '../screens/Messages';
+import { MessagesList } from '../screens/Messages/MessagesList';
 import { Icon } from '../components/common/Icon';
 import { colors } from '../theme/theme';
 
@@ -38,12 +38,12 @@ export function TabsNavigator() {
                 }}
             />
             <Tab.Screen
-                name={Routes.Message}
-                component={Messages}
+                name={Routes.MessagesList}
+                component={MessagesList}
                 options={{
                     title: 'Mensajes',
                     tabBarIcon: ({ focused, color, size }) => (
-                        <Icon name="message" size={35} color={color} />
+                        <Icon name="message" size={size} color={color} />
                     ),
                 }}
             />
