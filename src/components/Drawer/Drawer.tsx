@@ -119,19 +119,11 @@ export const Drawer: React.FC<DrawerProps> = ({ children }) => {
             {/* Contenido del Drawer */}
             <View style={styles.drawerBody}>
               <DrawerItem
-                icon="home"
-                label="Inicio"
-                onPress={() => {
-                  closeDrawer();
-                  navigation.navigate(Routes.HOME)
-                }}
-              />
-              <DrawerItem
                 icon="profile"
                 label="Perfil"
                 onPress={() => {
                   closeDrawer();
-                  navigation.navigate(Routes.PROFILE)
+                  navigation.navigate(Routes.PROFILE);
                 }}
               />
               <DrawerItem
@@ -139,7 +131,7 @@ export const Drawer: React.FC<DrawerProps> = ({ children }) => {
                 label="Configuración"
                 onPress={() => {
                   closeDrawer();
-                  navigation.navigate(Routes.SETTINGS)
+                  navigation.navigate(Routes.SETTINGS);
                 }}
               />
               <DrawerItem
@@ -147,7 +139,7 @@ export const Drawer: React.FC<DrawerProps> = ({ children }) => {
                 label="Matchs"
                 onPress={() => {
                   closeDrawer();
-                  navigation.navigate(Routes.Match)
+                  navigation.navigate(Routes.Match);
                 }}
               />
               <DrawerItem
@@ -155,7 +147,7 @@ export const Drawer: React.FC<DrawerProps> = ({ children }) => {
                 label="Llamar"
                 onPress={() => {
                   closeDrawer();
-                  navigation.navigate(Routes.Call)
+                  navigation.navigate(Routes.Call);
                 }}
               />
               <DrawerItem
@@ -170,7 +162,7 @@ export const Drawer: React.FC<DrawerProps> = ({ children }) => {
 
             {/* Footer del Drawer */}
             <View style={styles.drawerFooter}>
-              <Text style={styles.versionText}>v1.0.0</Text>
+              <Text style={styles.versionText}>V1.1.0</Text>
             </View>
           </View>
         </LinearGradient>
