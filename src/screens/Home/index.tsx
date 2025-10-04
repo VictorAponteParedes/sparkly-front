@@ -1,13 +1,22 @@
-import { View, Text } from "react-native";
+import React from 'react';
+import { View, ScrollView } from 'react-native';
+import RandomCallButton from './components/RandomCallButton';
+import { styles } from './styles';
 
+export default function Home() {
+    const handleRandomCall = () => {
+        // Lógica para iniciar videollamada aleatoria
+        console.log('Iniciando videollamada...');
+    };
 
-
-const Home = () => {
     return (
-        <View style={{ backgroundColor: 'blue' }}>
-            <Text>Home Screen</Text>
-        </View>
+        <ScrollView style={styles.container}>
+            <View style={styles.container}>
+            </View>
+
+            <RandomCallButton onPress={handleRandomCall} />
+
+
+        </ScrollView>
     );
 }
-
-export default Home;
