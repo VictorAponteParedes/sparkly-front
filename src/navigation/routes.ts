@@ -12,5 +12,8 @@ export const Routes = {
     REGISTER: 'Register',
 
     //Main Routes
-    MAIN_TABS: 'MAIN_TABS'
+    MAIN_TABS: 'MAIN_TABS',
+
+    //DRAWER ROUTES
+    DRAWER_VIEWS: 'DRAWER_VIEWS'
 }

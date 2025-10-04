@@ -11,6 +11,9 @@ import { Icon } from '../common/Icon';
 import { colors } from '../../theme/theme';
 import styles from './styles'
 import { fotoPerfil } from '../../assets/images';
+import LinearGradient from 'react-native-linear-gradient';
+import { useNavigation } from '@react-navigation/native';
+import { Routes } from '../../navigation/routes';
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const DRAWER_WIDTH = SCREEN_WIDTH * 0.8;
@@ -20,6 +23,7 @@ interface DrawerProps {
 }
 
 export const Drawer: React.FC<DrawerProps> = ({ children }) => {
+  const navigation = useNavigation();
   const [isOpen, setIsOpen] = useState(false);
   const slideAnim = React.useRef(new Animated.Value(-DRAWER_WIDTH)).current;
 
@@ -51,24 +55,25 @@ export const Drawer: React.FC<DrawerProps> = ({ children }) => {
   return (
     <View style={styles.container}>
       {/* Header con botón hamburguesa */}
-      <View style={styles.header}>
+      <LinearGradient
+        colors={[colors.pink[400], colors.amethyst[500]]}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 0 }}
+        style={styles.header}
+      >
         <TouchableOpacity onPress={toggleDrawer} style={styles.menuButton}>
-          <Icon name="menu" size={24} color={colors.pink[500]} />
+          <Icon name="menu" size={24} color={colors.white} />
         </TouchableOpacity>
+
         <Image
           source={fotoPerfil}
-          style={{
-            width: 70,
-            height: 70,
-            borderRadius: 50,
-            borderColor: colors.pink[500],
-            borderWidth: 1
-          }}
+          style={styles.profileImage}
         />
-        <TouchableOpacity >
-          <Icon name="notifications" size={24} color={colors.pink[500]} />
+
+        <TouchableOpacity>
+          <Icon name="notifications" size={24} color={colors.white} />
         </TouchableOpacity>
-      </View>
+      </LinearGradient>
 
       {/* Contenido principal */}
       <View style={styles.content}>
@@ -93,67 +98,82 @@ export const Drawer: React.FC<DrawerProps> = ({ children }) => {
           }
         ]}
       >
-        <View style={styles.drawerContent}>
-          {/* Header del Drawer */}
-          <View style={styles.drawerHeader}>
-            <TouchableOpacity onPress={closeDrawer} style={styles.closeButton}>
-              <Icon name="close" size={24} color={colors.white} />
-            </TouchableOpacity>
-            <View style={styles.drawerTitleContainer}>
-              <Icon name="profile" size={32} color={colors.white} />
-              <Text style={styles.drawerTitle}>Sparkly</Text>
+        <LinearGradient
+          colors={[colors.pink[600], colors.amethyst[600], colors.pink[800]]}
+          start={{ x: 0, y: 0 }}
+          end={{ x: 1, y: 1 }}
+          style={styles.drawerContent}
+        >
+          <View style={styles.drawerContent}>
+            {/* Header del Drawer */}
+            <View style={styles.drawerHeader}>
+              <TouchableOpacity onPress={closeDrawer} style={styles.closeButton}>
+                <Icon name="close" size={24} color={colors.white} />
+              </TouchableOpacity>
+              <View style={styles.drawerTitleContainer}>
+                <Icon name="profile" size={32} color={colors.white} />
+                <Text style={styles.drawerTitle}>Sparkly</Text>
+              </View>
+            </View>
+
+            {/* Contenido del Drawer */}
+            <View style={styles.drawerBody}>
+              <DrawerItem
+                icon="home"
+                label="Inicio"
+                onPress={() => {
+                  closeDrawer();
+                  navigation.navigate(Routes.HOME)
+                }}
+              />
+              <DrawerItem
+                icon="profile"
+                label="Perfil"
+                onPress={() => {
+                  closeDrawer();
+                  navigation.navigate(Routes.PROFILE)
+                }}
+              />
+              <DrawerItem
+                icon="settings"
+                label="Configuración"
+                onPress={() => {
+                  closeDrawer();
+                  navigation.navigate(Routes.SETTINGS)
+                }}
+              />
+              <DrawerItem
+                icon="carouselHorizontal"
+                label="Matchs"
+                onPress={() => {
+                  closeDrawer();
+                  navigation.navigate(Routes.Match)
+                }}
+              />
+              <DrawerItem
+                icon="match"
+                label="Llamar"
+                onPress={() => {
+                  closeDrawer();
+                  navigation.navigate(Routes.Call)
+                }}
+              />
+              <DrawerItem
+                icon="info"
+                label="Acerca de"
+                onPress={() => {
+                  closeDrawer();
+                  // Navegar a Acerca de
+                }}
+              />
+            </View>
+
+            {/* Footer del Drawer */}
+            <View style={styles.drawerFooter}>
+              <Text style={styles.versionText}>v1.0.0</Text>
             </View>
           </View>
-
-          {/* Contenido del Drawer */}
-          <View style={styles.drawerBody}>
-            <DrawerItem
-              icon="home"
-              label="Inicio"
-              onPress={() => {
-                closeDrawer();
-                // Navegar a Home
-              }}
-            />
-            <DrawerItem
-              icon="profile"
-              label="Perfil"
-              onPress={() => {
-                closeDrawer();
-                // Navegar a Perfil
-              }}
-            />
-            <DrawerItem
-              icon="settings"
-              label="Configuración"
-              onPress={() => {
-                closeDrawer();
-                // Navegar a Configuración
-              }}
-            />
-            <DrawerItem
-              icon="match"
-              label="Matchs"
-              onPress={() => {
-                closeDrawer();
-                // Navegar a Configuración
-              }}
-            />
-            <DrawerItem
-              icon="info"
-              label="Acerca de"
-              onPress={() => {
-                closeDrawer();
-                // Navegar a Acerca de
-              }}
-            />
-          </View>
-
-          {/* Footer del Drawer */}
-          <View style={styles.drawerFooter}>
-            <Text style={styles.versionText}>v1.0.0</Text>
-          </View>
-        </View>
+        </LinearGradient>
       </Animated.View>
     </View>
   );

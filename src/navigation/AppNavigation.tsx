@@ -2,16 +2,24 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Routes } from './routes';
 
-// Importa el TabsNavigator
-import TabsNavigator from './TabsNavigator';
+import { TabsNavigator } from './TabsNavigator';
 
 
 import Call from '../screens/Call';
 import Settings from '../screens/Settings';
+import Home from '../screens/Home';
+import Match from '../screens/Match';
+import Profile from '../screens/Profile';
+
+
+
+
+import { Drawer } from '../components/Drawer/Drawer';
 
 const Stack = createNativeStackNavigator();
 
-export default function AppNavigator() {
+
+function AppNavigatorWithDrawer() {
     return (
         <Stack.Navigator
             screenOptions={{
@@ -31,6 +39,26 @@ export default function AppNavigator() {
                 name={Routes.SETTINGS}
                 component={Settings}
             />
+            <Stack.Screen
+                name={Routes.Match}
+                component={Match}
+            />
+            <Stack.Screen
+                name={Routes.HOME}
+                component={Home}
+            />
+            <Stack.Screen
+                name={Routes.PROFILE}
+                component={Profile}
+            />
         </Stack.Navigator>
+    );
+}
+
+export default function AppNavigator() {
+    return (
+        <Drawer>
+            <AppNavigatorWithDrawer />
+        </Drawer>
     );
 }
