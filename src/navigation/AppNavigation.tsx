@@ -6,6 +6,7 @@ import { TabsNavigator } from './TabsNavigator';
 import Call from '../screens/Call';
 import Match from '../screens/Match';
 import Profile from '../screens/Profile';
+import Settings from '../screens/Settings';
 import { Drawer } from '../components/Drawer/Drawer';
 
 const Stack = createNativeStackNavigator();
@@ -42,6 +43,10 @@ export default function AppNavigator() {
             <Stack.Screen
                 name={Routes.PROFILE}
                 component={Profile}
+            />
+            <Stack.Screen
+                name={Routes.SETTINGS}
+                component={Settings}
             />
         </Stack.Navigator>
     );

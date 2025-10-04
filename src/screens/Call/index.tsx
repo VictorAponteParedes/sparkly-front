@@ -1,11 +1,18 @@
 import { View, Text } from "react-native";
+import { Layout } from "../../components/Layout";
 
 
 const Call = () => {
     return (
-        <View style={{ backgroundColor: 'red' }}>
-            <Text>Call Screen</Text>
-        </View>
+        <Layout
+            title="Llamadas"
+            leftIcon
+            rightIcon
+        >
+            <View >
+                <Text>Call Screen</Text>
+            </View>
+        </Layout>
     );
 }
 

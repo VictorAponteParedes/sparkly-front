@@ -15,6 +15,7 @@ import Info from '../../../assets/icons/info.svg';
 import Match from '../../../assets/icons/match.svg';
 import Notifications from '../../../assets/icons/notifications.svg';
 import CarouselHorizontal from '../../../assets/icons/carousel-horizontal.svg';
+import ArrowLeft from '../../../assets/icons/arrow-left.svg';
 
 
 const iconComponents = {
@@ -28,7 +29,8 @@ const iconComponents = {
     info: Info,
     match: Match,
     notifications: Notifications,
-    carouselHorizontal: CarouselHorizontal
+    carouselHorizontal: CarouselHorizontal,
+    arrowLeft: ArrowLeft
 } as const;
 
 export type IconName = keyof typeof iconComponents;
