@@ -11,13 +11,12 @@ export default function Home() {
     };
 
     return (
-        <ScrollView style={styles.container}>
-            <View style={styles.container}>
-            </View>
-
-            <RandomCallButton onPress={handleRandomCall} />
-
-
-        </ScrollView>
+        <Drawer>
+            <ScrollView style={styles.container}>
+                <View style={styles.container}>
+                </View>
+                <RandomCallButton onPress={handleRandomCall} />
+            </ScrollView>
+        </Drawer>
     );
 }
