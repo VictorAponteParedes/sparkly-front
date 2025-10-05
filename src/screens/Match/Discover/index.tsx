@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
     View,
     Text,
@@ -8,30 +8,60 @@ import {
     ScrollView,
 } from 'react-native';
 import Swiper from 'react-native-swiper';
+import LinearGradient from 'react-native-linear-gradient';
 import { Layout } from '../../../components/Layout';
 import { Icon } from '../../../components/common/Icon';
 import { colors } from '../../../theme/theme';
 import { slidesMatchMock, UserProfile } from '../../../mocks/slidesMatchMock';
+import { ModalGallery } from '../components/ModalGallery';
 import styles from './styles';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 const Match: React.FC = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [galleryModalVisible, setGalleryModalVisible] = useState(false);
+    const [selectedGalleryIndex, setSelectedGalleryIndex] = useState(0);
+    const [currentProfile, setCurrentProfile] = useState<UserProfile | null>(null);
+
+    const horizontalGalleryRef = useRef<ScrollView>(null);
 
     const handleLike = () => {
         console.log('Like a:', slidesMatchMock[currentIndex].name);
-        // Lógica para like
     };
 
     const handleDislike = () => {
         console.log('Dislike a:', slidesMatchMock[currentIndex].name);
-        // Lógica para dislike
     };
 
     const handleMessage = () => {
         console.log('Mensaje a:', slidesMatchMock[currentIndex].name);
-        // Lógica para mensaje
+    };
+
+    const openGallery = (profile: UserProfile, index: number = 0) => {
+        setCurrentProfile(profile);
+        setSelectedGalleryIndex(index);
+        setGalleryModalVisible(true);
+    };
+
+    const closeGallery = () => {
+        setGalleryModalVisible(false);
+        setCurrentProfile(null);
+        setSelectedGalleryIndex(0);
+    };
+
+    const handleGalleryPhotoPress = (profile: UserProfile, index: number) => {
+        openGallery(profile, index);
+
+        // Scroll horizontal para mostrar la foto seleccionada
+        setTimeout(() => {
+            if (horizontalGalleryRef.current) {
+                horizontalGalleryRef.current.scrollTo({
+                    x: index * 132, // 120 (ancho foto) + 12 (gap)
+                    animated: true
+                });
+            }
+        }, 100);
     };
 
     const renderProfile = (profile: UserProfile) => (
@@ -40,18 +70,18 @@ const Match: React.FC = () => {
             showsVerticalScrollIndicator={false}
             contentContainerStyle={styles.scrollContent}
         >
-            {/* Card 1: Foto principal con información */}
+            {/* Card 1: Foto principal */}
             <View style={styles.photoCard}>
                 <Image
                     source={{ uri: profile.principalPhoto }}
                     style={styles.mainPhoto}
                     resizeMode="cover"
                 />
-
-                {/* Gradient overlay */}
-                <View style={styles.gradientOverlay} />
-
-                {/* Información superpuesta */}
+                <LinearGradient
+                    colors={['transparent', 'rgba(0,0,0,0.1)', 'rgba(0,0,0,0.7)']}
+                    locations={[0, 0.5, 1]}
+                    style={styles.gradientOverlay}
+                />
                 <View style={styles.profileInfo}>
                     <Text style={styles.name}>
                         {profile.name}, {profile.age}
@@ -88,17 +118,23 @@ const Match: React.FC = () => {
             <View style={styles.card}>
                 <Text style={styles.cardTitle}>Galería de fotos</Text>
                 <ScrollView
+                    ref={horizontalGalleryRef}
                     horizontal
                     showsHorizontalScrollIndicator={false}
                     contentContainerStyle={styles.galleryContainer}
                 >
                     {profile.photosGalery.map((photo, index) => (
-                        <Image
+                        <TouchableOpacity
                             key={index}
-                            source={{ uri: photo }}
-                            style={styles.galleryPhoto}
-                            resizeMode="cover"
-                        />
+                            onPress={() => handleGalleryPhotoPress(profile, index)}
+                            activeOpacity={0.7}
+                        >
+                            <Image
+                                source={{ uri: photo }}
+                                style={styles.galleryPhoto}
+                                resizeMode="cover"
+                            />
+                        </TouchableOpacity>
                     ))}
                 </ScrollView>
             </View>
@@ -106,7 +142,7 @@ const Match: React.FC = () => {
     );
 
     return (
-        <Layout title="Descubrir" leftIcon>
+        <Layout title="Descubrir" leftIcon rightIcon rightIconName='info'>
             <View style={styles.container}>
                 {/* Swiper de perfiles */}
                 <Swiper
@@ -116,6 +152,7 @@ const Match: React.FC = () => {
                     loop={false}
                     onIndexChanged={setCurrentIndex}
                     cardStyle={styles.swiperCard}
+                    scrollEnabled={true}
                 >
                     {slidesMatchMock.map((profile) => (
                         <View key={profile.id} style={styles.swiperSlide}>
@@ -124,27 +161,51 @@ const Match: React.FC = () => {
                     ))}
                 </Swiper>
 
-                {/* Botones de acción */}
+                {/* Botones de acción con LinearGradient */}
                 <View style={styles.actionButtons}>
+                    {/* Botón Dislike con gradient */}
                     <TouchableOpacity
-                        style={[styles.actionButton, styles.dislikeButton]}
+                        style={styles.actionButton}
                         onPress={handleDislike}
                     >
-                        <Icon name="close" size={28} color={'red'} />
+                        <LinearGradient
+                            colors={[colors.gray[100], colors.gray[200]]}
+                            start={{ x: 0, y: 0 }}
+                            end={{ x: 1, y: 1 }}
+                            style={[styles.actionButtonGradient, styles.dislikeButton]}
+                        >
+                            <Icon name="close" size={28} color={'red'} />
+                        </LinearGradient>
                     </TouchableOpacity>
 
+                    {/* Botón Like con gradient principal */}
                     <TouchableOpacity
-                        style={[styles.actionButton, styles.likeButton]}
+                        style={styles.actionButton}
                         onPress={handleLike}
                     >
-                        <Icon name="heart" size={32} color={colors.white} />
+                        <LinearGradient
+                            colors={[colors.pink[400], colors.pink[600], colors.amethyst[500]]}
+                            start={{ x: 0, y: 0 }}
+                            end={{ x: 1, y: 1 }}
+                            style={[styles.actionButtonGradient, styles.likeButton]}
+                        >
+                            <Icon name="heart" size={32} color={colors.white} />
+                        </LinearGradient>
                     </TouchableOpacity>
 
+                    {/* Botón Message con gradient */}
                     <TouchableOpacity
-                        style={[styles.actionButton, styles.messageButton]}
+                        style={styles.actionButton}
                         onPress={handleMessage}
                     >
-                        <Icon name="message" size={28} color={colors.pink[500]} />
+                        <LinearGradient
+                            colors={[colors.pink[50], colors.pink[100]]}
+                            start={{ x: 0, y: 0 }}
+                            end={{ x: 1, y: 1 }}
+                            style={[styles.actionButtonGradient, styles.messageButton]}
+                        >
+                            <Icon name="message" size={28} color={colors.pink[500]} />
+                        </LinearGradient>
                     </TouchableOpacity>
                 </View>
 
@@ -160,9 +221,17 @@ const Match: React.FC = () => {
                         />
                     ))}
                 </View>
+
+                {/* Modal de galería */}
+                <ModalGallery
+                    visible={galleryModalVisible}
+                    onClose={closeGallery}
+                    profile={currentProfile}
+                    initialIndex={selectedGalleryIndex}
+                />
             </View>
         </Layout>
     );
 };
 
-export default Match;
+export default Match;   

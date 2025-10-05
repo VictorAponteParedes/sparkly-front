@@ -55,7 +55,7 @@ export default StyleSheet.create({
         right: 0,
         height: '50%',
         backgroundColor: 'transparent',
-        backgroundImage: 'linear-gradient(to top, rgba(0,0,0,0.7), transparent)',
+        // backgroundImage: 'linear-gradient(to top, rgba(0,0,0,0.7), transparent)',
     },
     profileInfo: {
         position: 'absolute',
@@ -142,6 +142,7 @@ export default StyleSheet.create({
         borderWidth: 2,
         borderColor: colors.gray[200],
     },
+
     // Botones de acción
     actionButtons: {
         flexDirection: 'row',
@@ -155,33 +156,41 @@ export default StyleSheet.create({
         borderTopColor: colors.gray[200],
     },
     actionButton: {
+        // Contenedor del botón
+    },
+
+    actionButtonGradient: {
         width: 64,
         height: 64,
         borderRadius: 32,
         alignItems: 'center',
         justifyContent: 'center',
         shadowColor: colors.black,
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.1,
-        shadowRadius: 4,
-        elevation: 3,
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.15,
+        shadowRadius: 8,
+        elevation: 6,
     },
     dislikeButton: {
-        backgroundColor: colors.white,
-        borderWidth: 2,
-        borderColor: colors.gray[300],
+        // Estilos específicos para el botón de dislike
+        borderWidth: 0, // Ya no necesita borde porque tiene gradient
     },
     likeButton: {
-        backgroundColor: colors.pink[500],
         width: 72,
         height: 72,
         borderRadius: 36,
+        shadowColor: colors.pink[500],
+        shadowOffset: { width: 0, height: 6 },
+        shadowOpacity: 0.3,
+        shadowRadius: 12,
+        elevation: 8,
     },
     messageButton: {
-        backgroundColor: colors.white,
-        borderWidth: 2,
-        borderColor: colors.pink[200],
+        // Estilos específicos para el botón de mensaje
+        borderWidth: 0, // Ya no necesita borde porque tiene gradient
     },
+
+
     // Indicador de progreso
     progressIndicator: {
         flexDirection: 'row',
@@ -201,4 +210,5 @@ export default StyleSheet.create({
         backgroundColor: colors.pink[500],
         width: 24,
     },
+
 });
