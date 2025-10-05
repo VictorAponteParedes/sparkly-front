@@ -19,6 +19,7 @@ interface LayoutProps {
     leftIcon?: boolean;
     onLeftIconPress?: () => void;
     rightIcon?: boolean;
+    rightIconName: string;
     onRightIconPress?: () => void;
     showBackButton?: boolean;
     headerStyle?: any;
@@ -31,6 +32,7 @@ export const Layout: React.FC<LayoutProps> = (props: LayoutProps) => {
         leftIcon,
         onLeftIconPress,
         rightIcon,
+        rightIconName,
         onRightIconPress,
         headerStyle,
     } = props;
@@ -81,7 +83,7 @@ export const Layout: React.FC<LayoutProps> = (props: LayoutProps) => {
                             onPress={onRightIconPress}
                             style={styles.iconButton}
                         >
-                            <Icon name='notifications' size={22} color={colors.white} />
+                            <Icon name={rightIconName} size={22} color={colors.white} />
                         </TouchableOpacity>
                     )}
                 </View>
