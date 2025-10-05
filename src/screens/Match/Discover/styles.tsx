@@ -211,4 +211,11 @@ export default StyleSheet.create({
         width: 24,
     },
 
+    counterText: {
+        fontSize: 14,
+        color: colors.gray[500],
+        fontWeight: '600',
+        marginLeft: 12,
+    },
+
 });

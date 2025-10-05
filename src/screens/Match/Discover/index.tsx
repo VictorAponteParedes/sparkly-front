@@ -25,17 +25,40 @@ const Match: React.FC = () => {
     const [currentProfile, setCurrentProfile] = useState<UserProfile | null>(null);
 
     const horizontalGalleryRef = useRef<ScrollView>(null);
+    const swiperRef = useRef<Swiper>(null);
 
     const handleLike = () => {
         console.log('Like a:', slidesMatchMock[currentIndex].name);
+        goToNextProfile();
     };
 
     const handleDislike = () => {
         console.log('Dislike a:', slidesMatchMock[currentIndex].name);
+
+        // Aquí iría tu lógica para guardar el dislike
+        // Por ejemplo: guardarDislikeEnBackend(slidesMatchMock[currentIndex].id);
+
+        // Navegar al siguiente perfil
+        goToNextProfile();
     };
 
     const handleMessage = () => {
         console.log('Mensaje a:', slidesMatchMock[currentIndex].name);
+        // Lógica para mensaje (esto no cambia de perfil)
+    };
+
+    const goToNextProfile = () => {
+        if (swiperRef.current) {
+            // Si hay más perfiles, ir al siguiente
+            if (currentIndex < slidesMatchMock.length - 1) {
+                swiperRef.current.scrollBy(1);
+            } else {
+                // Si es el último perfil, volver al inicio o mostrar mensaje
+                console.log('¡No hay más perfiles!');
+                // Opcional: volver al primer perfil
+                // swiperRef.current.scrollTo(0);
+            }
+        }
     };
 
     const openGallery = (profile: UserProfile, index: number = 0) => {
@@ -144,8 +167,9 @@ const Match: React.FC = () => {
     return (
         <Layout title="Descubrir" leftIcon rightIcon rightIconName='info'>
             <View style={styles.container}>
-                {/* Swiper de perfiles */}
+                {/* Swiper de perfiles con ref */}
                 <Swiper
+                    ref={swiperRef}
                     style={styles.swiper}
                     showsButtons={false}
                     showsPagination={false}
@@ -220,6 +244,11 @@ const Match: React.FC = () => {
                             ]}
                         />
                     ))}
+
+                    {/* Contador de perfiles */}
+                    <Text style={styles.counterText}>
+                        {currentIndex + 1}/{slidesMatchMock.length}
+                    </Text>
                 </View>
 
                 {/* Modal de galería */}
@@ -234,4 +263,4 @@ const Match: React.FC = () => {
     );
 };
 
-export default Match;   
+export default Match;
