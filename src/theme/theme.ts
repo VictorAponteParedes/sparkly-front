@@ -16,6 +16,21 @@ export const colors = {
         950: '#3e1457',
     },
 
+    // Paleta de rojo
+    red: {
+        50: '#fff0f3',
+        100: '#ffdee4',
+        200: '#ffc2cd',
+        300: '#ff98ab',
+        400: '#ff5d7b',
+        500: '#ff2b52',
+        600: '#e70831',
+        700: '#d0052a',
+        800: '#ab0927',
+        900: '#8d0f26',
+        950: '#4e010f',
+    },
+
     //Paleta rosa
     pink: {
         50: '#fff3fc',

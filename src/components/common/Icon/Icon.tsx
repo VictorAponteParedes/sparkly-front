@@ -20,6 +20,13 @@ import Send from '../../../assets/icons/send.svg';
 import Search from '../../../assets/icons/search.svg';
 import Location from '../../../assets/icons/location.svg';
 import Heart from '../../../assets/icons/heart.svg';
+import ChevronDown from '../../../assets/icons/chevron-down.svg';
+import ChevronUp from '../../../assets/icons/chevron-up.svg';
+import Check from '../../../assets/icons/check.svg';
+import Calendar from '../../../assets/icons/calendar.svg';
+import EyeOff from '../../../assets/icons/eye-off.svg';
+import Eye from '../../../assets/icons/eye.svg';
+import Camera from '../../../assets/icons/camera.svg';
 
 const iconComponents = {
     home: HomeIcon,
@@ -37,7 +44,15 @@ const iconComponents = {
     send: Send,
     search: Search,
     location: Location,
-    heart: Heart
+    heart: Heart,
+    chevronDown: ChevronDown,
+    chevronUp: ChevronUp,
+    check: Check,
+    calendar: Calendar,
+    eyeOff: EyeOff,
+    eye: Eye,
+    camera: Camera,
+
 } as const;
 
 export type IconName = keyof typeof iconComponents;

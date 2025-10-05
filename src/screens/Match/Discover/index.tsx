@@ -9,16 +9,20 @@ import {
 } from 'react-native';
 import Swiper from 'react-native-swiper';
 import LinearGradient from 'react-native-linear-gradient';
+import { useNavigation } from '@react-navigation/native';
 import { Layout } from '../../../components/Layout';
 import { Icon } from '../../../components/common/Icon';
 import { colors } from '../../../theme/theme';
 import { slidesMatchMock, UserProfile } from '../../../mocks/slidesMatchMock';
 import { ModalGallery } from '../components/ModalGallery';
+import { Routes } from '../../../navigation/routes';
+import { NavigationProp } from '../../../navigation/types';
 import styles from './styles';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 const Match: React.FC = () => {
+    const navigation = useNavigation<NavigationProp>(); // Especifica el tipo
     const [currentIndex, setCurrentIndex] = useState(0);
     const [galleryModalVisible, setGalleryModalVisible] = useState(false);
     const [selectedGalleryIndex, setSelectedGalleryIndex] = useState(0);
@@ -34,29 +38,25 @@ const Match: React.FC = () => {
 
     const handleDislike = () => {
         console.log('Dislike a:', slidesMatchMock[currentIndex].name);
-
-        // Aquí iría tu lógica para guardar el dislike
-        // Por ejemplo: guardarDislikeEnBackend(slidesMatchMock[currentIndex].id);
-
-        // Navegar al siguiente perfil
         goToNextProfile();
     };
 
     const handleMessage = () => {
         console.log('Mensaje a:', slidesMatchMock[currentIndex].name);
-        // Lógica para mensaje (esto no cambia de perfil)
+
+        // Navegar al chat con tipos correctos
+        navigation.navigate(Routes.MESSAGES_DETAIL, {
+            chatId: slidesMatchMock[currentIndex].id,
+            chatName: slidesMatchMock[currentIndex].name
+        });
     };
 
     const goToNextProfile = () => {
         if (swiperRef.current) {
-            // Si hay más perfiles, ir al siguiente
             if (currentIndex < slidesMatchMock.length - 1) {
                 swiperRef.current.scrollBy(1);
             } else {
-                // Si es el último perfil, volver al inicio o mostrar mensaje
                 console.log('¡No hay más perfiles!');
-                // Opcional: volver al primer perfil
-                // swiperRef.current.scrollTo(0);
             }
         }
     };
@@ -76,11 +76,10 @@ const Match: React.FC = () => {
     const handleGalleryPhotoPress = (profile: UserProfile, index: number) => {
         openGallery(profile, index);
 
-        // Scroll horizontal para mostrar la foto seleccionada
         setTimeout(() => {
             if (horizontalGalleryRef.current) {
                 horizontalGalleryRef.current.scrollTo({
-                    x: index * 132, // 120 (ancho foto) + 12 (gap)
+                    x: index * 132,
                     animated: true
                 });
             }

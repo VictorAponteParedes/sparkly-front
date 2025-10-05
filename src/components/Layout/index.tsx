@@ -19,7 +19,7 @@ interface LayoutProps {
     leftIcon?: boolean;
     onLeftIconPress?: () => void;
     rightIcon?: boolean;
-    rightIconName: string;
+    rightIconName?: string;
     onRightIconPress?: () => void;
     showBackButton?: boolean;
     headerStyle?: any;

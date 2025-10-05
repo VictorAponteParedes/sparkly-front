@@ -48,6 +48,8 @@ const MessagesDetail: React.FC = () => {
             title={chatName}
             leftIcon
             onRightIconPress={() => console.log('Notificaciones')}
+            rightIconName='info'
+            rightIcon
         >
             <KeyboardAvoidingView
                 style={styles.container}
