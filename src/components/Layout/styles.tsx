@@ -10,17 +10,6 @@ export default StyleSheet.create({
     },
     statusBarGradient: {
         paddingTop: Platform.OS === 'ios' ? 44 : (StatusBar.currentHeight || 0),
-        ...Platform.select({
-            ios: {
-                shadowColor: colors.black,
-                shadowOffset: { width: 0, height: 2 },
-                shadowOpacity: 0.1,
-                shadowRadius: 4,
-            },
-            android: {
-                elevation: 4,
-            },
-        }),
     },
     header: {
         flexDirection: 'row',

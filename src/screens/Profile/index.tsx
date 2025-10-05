@@ -6,6 +6,7 @@ import {
     TouchableOpacity,
     Image,
     Alert,
+    Modal,
 } from 'react-native';
 import { useForm } from 'react-hook-form';
 import { Layout } from '../../components/Layout';
@@ -20,6 +21,7 @@ import {
 } from '../../components/Form';
 import { colors } from '../../theme/theme';
 import styles from './styles';
+import { fotoPerfil } from '../../assets/images';
 
 // Tipos para el formulario
 interface ProfileForm {
@@ -41,7 +43,7 @@ interface ProfileForm {
 }
 
 const Profile = () => {
-    const { control, handleSubmit, formState: { errors }, watch } = useForm<ProfileForm>({
+    const { control, handleSubmit, formState: { errors } } = useForm<ProfileForm>({
         defaultValues: {
             name: "Sofia",
             age: "28",
@@ -58,7 +60,13 @@ const Profile = () => {
     });
 
     const [isEditing, setIsEditing] = useState(false);
-    const [profileImage, setProfileImage] = useState("https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400");
+    const [profileImage, setProfileImage] = useState(fotoPerfil);
+    const [galleryPhotos, setGalleryPhotos] = useState([
+        fotoPerfil,
+        fotoPerfil,
+        fotoPerfil
+    ]);
+    const [imagePickerModal, setImagePickerModal] = useState(false);
 
     // Opciones para los selects
     const genderOptions = [
@@ -101,14 +109,77 @@ const Profile = () => {
     };
 
     const handleImageChange = () => {
-        // Aquí iría la lógica para cambiar la imagen
-        Alert.alert("Cambiar foto", "Selecciona una nueva foto de perfil");
+        setImagePickerModal(true);
     };
+
+    const handleTakePhoto = () => {
+        setImagePickerModal(false);
+        // Aquí iría la lógica para abrir la cámara
+        Alert.alert("Cámara", "Funcionalidad de cámara por implementar");
+    };
+
+    const handleChooseFromGallery = () => {
+        setImagePickerModal(false);
+        // Aquí iría la lógica para abrir la galería
+        Alert.alert("Galería", "Funcionalidad de galería por implementar");
+    };
+
+    const handleAddGalleryPhoto = () => {
+        if (galleryPhotos.length < 7) {
+            setGalleryPhotos([...galleryPhotos, fotoPerfil]);
+        } else {
+            Alert.alert("Límite alcanzado", "Máximo 7 fotos permitidas");
+        }
+    };
+
+    const handleRemoveGalleryPhoto = (index: number) => {
+        const newPhotos = galleryPhotos.filter((_, i) => i !== index);
+        setGalleryPhotos(newPhotos);
+    };
+
+    const renderImagePickerModal = () => (
+        <Modal
+            visible={imagePickerModal}
+            transparent={true}
+            animationType="slide"
+            onRequestClose={() => setImagePickerModal(false)}
+        >
+            <View style={styles.modalOverlay}>
+                <View style={styles.modalContent}>
+                    <Text style={styles.modalTitle}>Cambiar foto de perfil</Text>
+
+                    <TouchableOpacity
+                        style={styles.modalOption}
+                        onPress={handleTakePhoto}
+                    >
+                        <Icon name="camera" size={24} color={colors.pink[500]} />
+                        <Text style={styles.modalOptionText}>Tomar foto</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={styles.modalOption}
+                        onPress={handleChooseFromGallery}
+                    >
+                        <Icon name="imageHeart" size={24} color={colors.pink[500]} />
+                        <Text style={styles.modalOptionText}>Elegir de galería</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={styles.modalCancel}
+                        onPress={() => setImagePickerModal(false)}
+                    >
+                        <Text style={styles.modalCancelText}>Cancelar</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </Modal>
+    );
 
     return (
         <Layout
             title="Mi Perfil"
             leftIcon
+            leftIconName="arrowLeft" // Nombre correcto del icono
             rightIcon
             rightIconName={isEditing ? "save" : "edit"}
             onRightIconPress={() => isEditing ? handleSubmit(onSubmit)() : setIsEditing(true)}
@@ -127,13 +198,13 @@ const Profile = () => {
                             disabled={!isEditing}
                         >
                             <Image
-                                source={{ uri: profileImage }}
+                                source={profileImage}
                                 style={styles.profileImage}
                                 resizeMode="cover"
                             />
                             {isEditing && (
                                 <View style={styles.cameraIcon}>
-                                    <Icon name="camera" size={20} color={colors.white} />
+                                    <Icon name="camera" size={20} color={colors.black} />
                                 </View>
                             )}
                         </TouchableOpacity>
@@ -238,6 +309,43 @@ const Profile = () => {
                         error={errors.birthDate?.message}
                         maximumDate={new Date()}
                     />
+                </View>
+
+                {/* Sección Galería de Fotos */}
+                <View style={styles.section}>
+                    <Text style={styles.sectionTitle}>Mis Fotos</Text>
+                    <Text style={styles.gallerySubtitle}>
+                        {galleryPhotos.length}/7 fotos • Puedes agregar hasta 7 fotos
+                    </Text>
+
+                    <View style={styles.galleryContainer}>
+                        {galleryPhotos.map((photo, index) => (
+                            <View key={index} style={styles.galleryPhotoContainer}>
+                                <Image
+                                    source={photo}
+                                    style={styles.galleryPhoto}
+                                    resizeMode="cover"
+                                />
+                                {isEditing && (
+                                    <TouchableOpacity
+                                        style={styles.removePhotoButton}
+                                        onPress={() => handleRemoveGalleryPhoto(index)}
+                                    >
+                                        <Icon name="close" size={16} color={colors.white} />
+                                    </TouchableOpacity>
+                                )}
+                            </View>
+                        ))}
+
+                        {isEditing && galleryPhotos.length < 7 && (
+                            <TouchableOpacity
+                                style={styles.addPhotoButton}
+                                onPress={handleAddGalleryPhoto}
+                            >
+                                <Icon name="plus" size={24} color={colors.gray[400]} />
+                            </TouchableOpacity>
+                        )}
+                    </View>
                 </View>
 
                 {/* Sección Intereses */}
@@ -345,6 +453,9 @@ const Profile = () => {
                 {/* Espacio al final */}
                 <View style={styles.spacer} />
             </ScrollView>
+
+            {/* Modal para seleccionar foto */}
+            {renderImagePickerModal()}
         </Layout>
     );
 };

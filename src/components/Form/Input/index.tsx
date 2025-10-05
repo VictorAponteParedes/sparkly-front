@@ -18,6 +18,7 @@ export const Input = <T extends FieldValues>({
     label,
     error,
     required = false,
+    editable = true, // Valor por defecto
     ...props
 }: InputProps<T>) => {
     return (
@@ -36,12 +37,14 @@ export const Input = <T extends FieldValues>({
                         style={[
                             styles.input,
                             error && styles.inputError,
-                            props.multiline && styles.multilineInput
+                            props.multiline && styles.multilineInput,
+                            !editable && styles.inputDisabled // Estilo para modo no editable
                         ]}
                         onBlur={onBlur}
                         onChangeText={onChange}
                         value={value as string}
                         placeholderTextColor={colors.gray[400]}
+                        editable={editable} // Pasa la prop editable
                         {...props}
                     />
                 )}

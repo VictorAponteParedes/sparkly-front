@@ -84,7 +84,7 @@ export const MultiSelect = <T extends FieldValues>({
                                         style={styles.toggleButton}
                                     >
                                         <Icon
-                                            name={isOpen ? "chevron-up" : "chevron-down"}
+                                            name={isOpen ? "chevronUp" : "chevronDown"}
                                             size={16}
                                             color={colors.gray[600]}
                                         />

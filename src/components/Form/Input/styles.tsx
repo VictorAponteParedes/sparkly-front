@@ -29,6 +29,12 @@ export default StyleSheet.create({
         borderColor: colors.red[500],
         backgroundColor: colors.red[50],
     },
+    inputDisabled: {
+        backgroundColor: colors.gray[100],
+        borderColor: colors.gray[200],
+        color: colors.gray[500],
+        opacity: 0.7,
+    },
     multilineInput: {
         minHeight: 100,
         textAlignVertical: 'top',

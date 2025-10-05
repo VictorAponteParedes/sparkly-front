@@ -27,6 +27,10 @@ import Calendar from '../../../assets/icons/calendar.svg';
 import EyeOff from '../../../assets/icons/eye-off.svg';
 import Eye from '../../../assets/icons/eye.svg';
 import Camera from '../../../assets/icons/camera.svg';
+import Plus from '../../../assets/icons/plus.svg';
+import ImageHeart from '../../../assets/icons/image-heart.svg';
+import SaveIcon from '../../../assets/icons/save.svg';
+import EditIcon from '../../../assets/icons/edit.svg';
 
 const iconComponents = {
     home: HomeIcon,
@@ -52,6 +56,10 @@ const iconComponents = {
     eyeOff: EyeOff,
     eye: Eye,
     camera: Camera,
+    plus: Plus,
+    imageHeart: ImageHeart,
+    save: SaveIcon,
+    edit: EditIcon,
 
 } as const;
 

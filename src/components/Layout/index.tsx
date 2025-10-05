@@ -5,11 +5,10 @@ import {
     Text,
     StatusBar,
     SafeAreaView,
-    Platform,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import LinearGradient from 'react-native-linear-gradient';
-import { Icon } from '../common/Icon';
+import { Icon, IconName } from '../common/Icon'; // Asegúrate de exportar IconName
 import { colors } from '../../theme/theme';
 import styles from './styles';
 
@@ -17,9 +16,10 @@ interface LayoutProps {
     children: React.ReactNode;
     title?: string;
     leftIcon?: boolean;
+    leftIconName?: IconName; // Nuevo: nombre personalizado para left icon
     onLeftIconPress?: () => void;
     rightIcon?: boolean;
-    rightIconName?: string;
+    rightIconName?: IconName;
     onRightIconPress?: () => void;
     showBackButton?: boolean;
     headerStyle?: any;
@@ -30,9 +30,10 @@ export const Layout: React.FC<LayoutProps> = (props: LayoutProps) => {
         children,
         title,
         leftIcon,
+        leftIconName = "arrowLeft", // Valor por defecto
         onLeftIconPress,
         rightIcon,
-        rightIconName,
+        rightIconName = "settings", // Valor por defecto
         onRightIconPress,
         headerStyle,
     } = props;
@@ -49,35 +50,35 @@ export const Layout: React.FC<LayoutProps> = (props: LayoutProps) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            {/* StatusBar transparente para que se vea el gradient */}
             <StatusBar
                 barStyle="light-content"
                 translucent
                 backgroundColor="transparent"
             />
 
-            {/* Gradient que cubre StatusBar y Header */}
             <LinearGradient
                 colors={[colors.pink[400], colors.amethyst[500]]}
                 start={{ x: 0, y: 0 }}
                 end={{ x: 1, y: 0 }}
                 style={styles.statusBarGradient}
             >
-                {/* Header dentro del mismo gradient */}
                 <View style={[styles.header, headerStyle]}>
+                    {/* Left Icon */}
                     {leftIcon && (
                         <TouchableOpacity
                             onPress={handleLeftPress}
                             style={styles.iconButton}
                         >
-                            <Icon name='arrowLeft' size={22} color={colors.white} />
+                            <Icon name={leftIconName} size={22} color={colors.white} />
                         </TouchableOpacity>
                     )}
 
+                    {/* Title */}
                     <Text style={styles.title} numberOfLines={1}>
                         {title || ''}
                     </Text>
 
+                    {/* Right Icon */}
                     {rightIcon && (
                         <TouchableOpacity
                             onPress={onRightIconPress}
@@ -86,10 +87,12 @@ export const Layout: React.FC<LayoutProps> = (props: LayoutProps) => {
                             <Icon name={rightIconName} size={22} color={colors.white} />
                         </TouchableOpacity>
                     )}
+
+                    {/* Placeholder cuando no hay right icon para mantener centrado el título */}
+                    {!rightIcon && leftIcon && <View style={styles.iconButton} />}
                 </View>
             </LinearGradient>
 
-            {/* Contenido */}
             <View style={styles.content}>
                 {children}
             </View>
