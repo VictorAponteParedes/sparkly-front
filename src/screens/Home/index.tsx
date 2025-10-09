@@ -1,21 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, ScrollView } from 'react-native';
 import RandomCallButton from './components/RandomCallButton';
+import CallSimulator from '../CallSimulator';
 import { styles } from './styles';
 import { Drawer } from '../../components/Drawer/Drawer';
 
 export default function Home() {
+    const [isCallActive, setIsCallActive] = useState(false);
+
     const handleRandomCall = () => {
-        // Lógica para iniciar videollamada aleatoria
-        console.log('Iniciando videollamada...');
+        setIsCallActive(true);
+    };
+
+    const handleCallEnd = () => {
+        // Aquí puedes agregar lógica post-llamada
+        console.log('Llamada finalizada');
+    };
+
+    const handleCloseCall = () => {
+        setIsCallActive(false);
     };
 
     return (
         <Drawer>
             <ScrollView style={styles.container}>
-                <View style={styles.container}>
+                <View style={styles.content}>
+                    <RandomCallButton onPress={handleRandomCall} />
                 </View>
-                <RandomCallButton onPress={handleRandomCall} />
+
+                <CallSimulator
+                    visible={isCallActive}
+                    onClose={handleCloseCall}
+                    onCallEnd={handleCallEnd}
+                />
             </ScrollView>
         </Drawer>
     );
