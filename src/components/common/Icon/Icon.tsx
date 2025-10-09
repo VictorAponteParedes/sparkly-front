@@ -31,6 +31,10 @@ import Plus from '../../../assets/icons/plus.svg';
 import ImageHeart from '../../../assets/icons/image-heart.svg';
 import SaveIcon from '../../../assets/icons/save.svg';
 import EditIcon from '../../../assets/icons/edit.svg';
+import MicrofoneOff from '../../../assets/icons/microphone-off.svg';
+import Microfone from '../../../assets/icons/microphone.svg';
+import CameraOff from '../../../assets/icons/camera-off.svg';
+import PhoneOff from '../../../assets/icons/phone-off.svg';
 
 const iconComponents = {
     home: HomeIcon,
@@ -60,6 +64,11 @@ const iconComponents = {
     imageHeart: ImageHeart,
     save: SaveIcon,
     edit: EditIcon,
+    microfoneOff: MicrofoneOff,
+    microfone: Microfone,
+    cameraOff: CameraOff,
+    phoneOff: PhoneOff,
+
 
 } as const;
 

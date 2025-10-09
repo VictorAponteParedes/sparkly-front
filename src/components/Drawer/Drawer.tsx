@@ -136,7 +136,7 @@ export const Drawer: React.FC<DrawerProps> = ({ children }) => {
               />
               <DrawerItem
                 icon="carouselHorizontal"
-                label="Matchs"
+                label="Descubrir"
                 onPress={() => {
                   closeDrawer();
                   navigation.navigate(Routes.Match);
@@ -151,7 +151,7 @@ export const Drawer: React.FC<DrawerProps> = ({ children }) => {
                 }}
               />
               <DrawerItem
-                icon="match"
+                icon="videoCall"
                 label="Llamar"
                 onPress={() => {
                   closeDrawer();
