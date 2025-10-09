@@ -172,4 +172,10 @@ export default StyleSheet.create({
         textAlign: 'center',
         marginTop: 10,
     },
+    warningText: {
+        color: '#FF4444',
+        fontSize: 14,
+        textAlign: 'center',
+        marginTop: 10,
+    },
 });
