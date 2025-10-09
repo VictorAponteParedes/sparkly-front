@@ -13,7 +13,6 @@ export default function Home() {
     };
 
     const handleCallEnd = () => {
-        // Aquí puedes agregar lógica post-llamada
         console.log('Llamada finalizada');
     };
 

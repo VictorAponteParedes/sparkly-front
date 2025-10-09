@@ -12,10 +12,20 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle")
+        classpath("com.android.tools.build:gradle:8.2.1") // ← AGREGAR versión
         classpath("com.facebook.react:react-native-gradle-plugin")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion") // ← USAR variable
     }
 }
 
-apply plugin: "com.facebook.react.rootproject"
+// CORREGIR esta línea - eliminar o comentar:
+// apply plugin: "com.facebook.react.rootproject"
+
+// EN SU LUGAR, agregar esto:
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://www.jitpack.io' }
+    }
+}
